@@ -1,0 +1,67 @@
+Metadata-Version: 2.4
+Name: navsim
+Version: 1.1.0
+Summary: NAVSIM: Data-Driven Non-Reactive Autonomous Vehicle Simulation and Benchmarking
+Home-page: https://github.com/autonomousvision/navsim
+Author: University of Tuebingen
+Author-email: kashyap.chitta@uni-tuebingen.de
+License: apache-2.0
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Operating System :: OS Independent
+Classifier: License :: Free for non-commercial use
+Requires-Python: >=3.9
+License-File: LICENSE
+Requires-Dist: nuplan-devkit @ git+https://github.com/motional/nuplan-devkit/@nuplan-devkit-v1.2
+Requires-Dist: scikit-learn==1.2.2
+Requires-Dist: positional-encodings==6.0.1
+Requires-Dist: aioboto3
+Requires-Dist: aiofiles
+Requires-Dist: bokeh==2.4.3
+Requires-Dist: casadi
+Requires-Dist: control==0.9.1
+Requires-Dist: Fiona
+Requires-Dist: geopandas>=0.12.1
+Requires-Dist: guppy3==3.1.2
+Requires-Dist: hydra-core==1.2.0
+Requires-Dist: joblib
+Requires-Dist: matplotlib
+Requires-Dist: nest_asyncio
+Requires-Dist: numpy==1.23.4
+Requires-Dist: opencv-python==4.9.0.80
+Requires-Dist: pandas
+Requires-Dist: Pillow
+Requires-Dist: psutil
+Requires-Dist: pyarrow
+Requires-Dist: pyinstrument
+Requires-Dist: pyogrio
+Requires-Dist: pyquaternion>=0.9.5
+Requires-Dist: pytest
+Requires-Dist: rasterio
+Requires-Dist: ray
+Requires-Dist: retry
+Requires-Dist: rtree
+Requires-Dist: scipy
+Requires-Dist: selenium
+Requires-Dist: setuptools==65.5.1
+Requires-Dist: Shapely>=2.0.0
+Requires-Dist: SQLAlchemy==1.4.27
+Requires-Dist: sympy
+Requires-Dist: tornado
+Requires-Dist: tqdm
+Requires-Dist: ujson
+Requires-Dist: torch==2.0.1
+Requires-Dist: torchvision==0.15.2
+Requires-Dist: pytorch-lightning==2.2.1
+Requires-Dist: tensorboard==2.16.2
+Requires-Dist: protobuf==4.25.3
+Requires-Dist: notebook
+Requires-Dist: timm
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
