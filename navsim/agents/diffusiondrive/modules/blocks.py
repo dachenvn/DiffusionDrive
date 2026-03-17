@@ -31,7 +31,7 @@ def gen_sineembed_for_position(pos_tensor, hidden_dim=256):
     pos_x = torch.stack((pos_x[..., 0::2].sin(), pos_x[..., 1::2].cos()), dim=-1).flatten(-2)
     pos_y = torch.stack((pos_y[..., 0::2].sin(), pos_y[..., 1::2].cos()), dim=-1).flatten(-2)
     pos = torch.cat((pos_y, pos_x), dim=-1)
-    return pos
+    return pos  # 将二维坐标转换为向量，用于后续的注意力机制
 
 def bias_init_with_prob(prior_prob):
     """initialize conv/fc bias value according to giving probablity."""
@@ -93,7 +93,7 @@ class GridSampleCrossBEVAttention(nn.Module):
         value = self.value_proj(bev_feature)
         grid = normalized_trajectory.view(bs, num_queries, num_points, 2)
         # Sample features
-        sampled_features = torch.nn.functional.grid_sample(
+        sampled_features = torch.nn.functional.grid_sample(  # 使用网格采样，将BEV特征采样到轨迹点上，最终可以得到每个轨迹点的 BEV特征
             value, 
             grid, 
             mode='bilinear', 

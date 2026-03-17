@@ -130,22 +130,22 @@ class LossComputer(nn.Module):
         """
         bs, num_mode, ts, d = poses_reg.shape
         target_traj = targets["trajectory"]
-        dist = torch.linalg.norm(target_traj.unsqueeze(1)[...,:2] - plan_anchor, dim=-1)
+        dist = torch.linalg.norm(target_traj.unsqueeze(1)[...,:2] - plan_anchor, dim=-1)   # 计算预测轨迹与目标轨迹的距离
         dist = dist.mean(dim=-1)
-        mode_idx = torch.argmin(dist, dim=-1)
+        mode_idx = torch.argmin(dist, dim=-1)   # 找到距离最小的轨迹索引
         cls_target = mode_idx
         mode_idx = mode_idx[...,None,None,None].repeat(1,1,ts,d)
-        best_reg = torch.gather(poses_reg, 1, mode_idx).squeeze(1)
+        best_reg = torch.gather(poses_reg, 1, mode_idx).squeeze(1)   # 找到距离最小的轨迹
         # import ipdb; ipdb.set_trace()
         # Calculate cls loss using focal loss
-        target_classes_onehot = torch.zeros([bs, num_mode],
+        target_classes_onehot = torch.zeros([bs, num_mode],             # 创建一个one-hot编码，用于计算分类损失
                                             dtype=poses_cls.dtype,
                                             layout=poses_cls.layout,
                                             device=poses_cls.device)
-        target_classes_onehot.scatter_(1, cls_target.unsqueeze(1), 1)
+        target_classes_onehot.scatter_(1, cls_target.unsqueeze(1), 1)   # 将one-hot编码赋值给目标轨迹
 
         # Use py_sigmoid_focal_loss function for focal loss calculation
-        loss_cls = self.cls_loss_weight * py_sigmoid_focal_loss(
+        loss_cls = self.cls_loss_weight * py_sigmoid_focal_loss(   # 计算BCE分类损失
             poses_cls,
             target_classes_onehot,
             weight=None,
@@ -156,7 +156,7 @@ class LossComputer(nn.Module):
         )
 
         # Calculate regression loss
-        reg_loss = self.reg_loss_weight * F.l1_loss(best_reg, target_traj)
+        reg_loss = self.reg_loss_weight * F.l1_loss(best_reg, target_traj)   # 计算L1回归损失
         # import ipdb; ipdb.set_trace()
         # Combine classification and regression losses
         ret_loss = loss_cls + reg_loss

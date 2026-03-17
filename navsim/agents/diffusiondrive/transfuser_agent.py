@@ -5,6 +5,7 @@ import torch.nn as nn
 from torch.optim import Optimizer
 from torch.optim.lr_scheduler import LRScheduler
 import pytorch_lightning as pl
+import logging
 
 from navsim.agents.abstract_agent import AbstractAgent
 from navsim.agents.diffusiondrive.transfuser_config import TransfuserConfig
@@ -32,7 +33,7 @@ def build_from_configs(obj, cfg: DictConfig, **kwargs):
 class TransfuserAgent(AbstractAgent):
     """Agent interface for TransFuser baseline."""
 
-    def __init__(
+    def __init__(      #python中实例化类，会自动调用 _init_方法
         self,
         config: TransfuserConfig,
         lr: float,
@@ -44,13 +45,15 @@ class TransfuserAgent(AbstractAgent):
         :param lr: learning rate during training
         :param checkpoint_path: optional path string to checkpoint, defaults to None
         """
+        logger = logging.getLogger(__name__)
+        logger.info("TransfuserAgent __init__ 初始化开始")
         super().__init__()
 
         self._config = config
         self._lr = lr
 
         self._checkpoint_path = checkpoint_path
-        self._transfuser_model = TransfuserModel(config)
+        self._transfuser_model = TransfuserModel(config)    #模型网络结构
         self.init_from_pretrained()
 
     def init_from_pretrained(self):
